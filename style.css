@@ -1,4 +1,3 @@
-
 /* Element selector */
 body {
     font-family: Arial, sans-serif;
@@ -32,4 +31,156 @@ h1 {
 input {
     padding: 8px;
     margin-left: 10px;
+}
+
+/* Element selector */
+select {
+    padding: 8px;
+    margin-left: 10px;
+}
+
+/* Element selector */
+img {
+    display: block;
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   NEW: Add Expense button
+   ========================================================= */
+
+/* ID selector */
+#add-expense-btn {
+    display: block;
+    margin-top: 16px;
+    padding: 10px 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#add-expense-btn:hover {
+    background-color: #43a047;
+}
+
+
+/* =========================================================
+   NEW: How to use this tracker (details/summary)
+   ========================================================= */
+
+/* ID selector */
+#how-to {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#how-to summary {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   NEW: Expense table
+   ========================================================= */
+
+/* ID selector, with border-collapse per the assignment */
+#expenses-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+}
+
+/* Descendant selector - targets th/td anywhere inside the table */
+#expenses-table th,
+#expenses-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+/* Colored header row */
+#expenses-table thead th {
+    background-color: #388e3c;
+    color: white;
+}
+
+
+/* =========================================================
+   NEW: Budgeting Tips / video section
+   ========================================================= */
+
+/* ID selector */
+#budget-tips {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+    border: 2px solid #ccc;
+}
+
+/* Element selector */
+iframe {
+    display: block;
+    border: none;
+    max-width: 100%;
+}
+
+
+/* =========================================================
+   ADVANCED SELECTORS (at least 3 required - 5 used here)
+   ========================================================= */
+
+/* 1. Descendant selector
+      Targets every td nested inside .expenses, however deep. */
+.expenses td {
+    color: #222;
+}
+
+/* 2. Direct child selector
+      Only <label> elements that are direct children of the form
+      get this styling - not labels nested somewhere else. */
+#expense-form > label {
+    font-weight: bold;
+}
+
+/* 3. Position-based pseudo-classes
+      First data row gets a top accent, even rows are striped. */
+#expenses-table tbody tr:first-child {
+    border-top: 2px solid #388e3c;
+}
+
+#expenses-table tbody tr:nth-child(even) {
+    background-color: #f1f8f1;
+}
+
+/* 4. Negation pseudo-class
+      Every form input is styled the same size EXCEPT number
+      inputs, which are narrower since amounts are short. */
+#expense-form input:not([type="number"]) {
+    width: 220px;
+}
+
+#expense-form input[type="number"] {
+    width: 120px;
+}
+
+/* 5. Focus state
+      Highlight whichever field/select the user is currently in. */
+#expense-form input:focus,
+#expense-form select:focus {
+    outline: none;
+    border: 1px solid #388e3c;
+    box-shadow: 0 0 0 2px rgba(56, 142, 60, 0.2);
+}
+
+/* :hover feedback on table rows */
+#expenses-table tbody tr:hover {
+    background-color: #dcedc8;
 }
