@@ -1,45 +1,57 @@
-/* Element selector */
-body {
-    font-family: Arial, sans-serif;
-    margin: 40px;
-    background-color: #f4f4f4;
+/* =========================================================
+   FONTS
+   Poppins for headings, Inter for body text/labels/table/form.
+   ========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+
+
+/* =========================================================
+   COLOR PALETTE (kept small and consistent, used everywhere)
+   ========================================================= */
+:root {
+    --color-bg: #f3f7f4;          /* page background - soft sage */
+    --color-card: #ffffff;        /* card background */
+    --color-primary: #2f6f4f;     /* deep green - headings, buttons, table header */
+    --color-primary-dark: #23543c;/* hover state for primary elements */
+    --color-primary-light: #e7f3ea; /* light tint - stripes, hover rows, focus ring */
+    --color-text: #263330;        /* main body text */
+    --color-text-muted: #5b6b66;  /* secondary text */
+    --color-border: #dbe6df;      /* card/table/input borders */
 }
 
-/* Element selector */
+
+/* =========================================================
+   BASE / ELEMENT SELECTORS
+   ========================================================= */
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    margin: 0;
+    padding: 40px 24px;
+    line-height: 1.5;
+}
+
+h1, h2 {
+    font-family: 'Poppins', sans-serif;
+    color: var(--color-primary);
+    margin: 0;
+}
+
 h1 {
     text-align: center;
-    font-size: 36px;
+    font-size: 34px;
 }
 
-/* ID selector */
-#add-expense {
-    background-color: white;
-    padding: 20px;
-    margin-top: 20px;
-    border: 2px solid #ccc;
+h2 {
+    font-size: 20px;
+    margin-bottom: 16px;
 }
 
-/* Class selector */
-.expenses {
-    background-color: #e8f5e9;
-    padding: 20px;
-    margin-top: 20px;
-    border: 2px solid #aaa;
+p {
+    color: var(--color-text-muted);
 }
 
-/* Element selector */
-input {
-    padding: 8px;
-    margin-left: 10px;
-}
-
-/* Element selector */
-select {
-    padding: 8px;
-    margin-left: 10px;
-}
-
-/* Element selector */
 img {
     display: block;
     margin: 0 auto;
@@ -47,140 +59,250 @@ img {
 
 
 /* =========================================================
-   NEW: Add Expense button
+   BOX MODEL - "page heading" as a distinct card
+   img, h1 and p sit directly in <body> (no wrapper element),
+   so they're joined into one seamless card: matching side
+   borders/background on all three, rounded corners only on
+   the very top (img) and very bottom (p) edges, and no gap
+   between them.
    ========================================================= */
+img,
+body > h1,
+body > p {
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--color-card);
+    border-left: 1px solid var(--color-border);
+    border-right: 1px solid var(--color-border);
+    padding-left: 24px;
+    padding-right: 24px;
+    box-sizing: border-box;
+}
 
-/* ID selector */
+img {
+    padding-top: 24px;
+    padding-bottom: 12px;
+    border-top: 1px solid var(--color-border);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    box-shadow: 0 2px 6px rgba(47, 111, 79, 0.08);
+}
+
+body > h1 {
+    padding-top: 4px;
+    padding-bottom: 8px;
+}
+
+body > p {
+    padding-top: 0;
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--color-border);
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    box-shadow: 0 2px 6px rgba(47, 111, 79, 0.08);
+    text-align: center;
+}
+
+
+/* =========================================================
+   BOX MODEL - section "cards"
+   Every major section shares the same card treatment:
+   padding inside, margin to separate from neighbors, a
+   border to define the edge, and rounded corners.
+   ========================================================= */
+#add-expense,
+.expenses,
+#budget-tips {
+    max-width: 640px;
+    margin: 0 auto 24px auto;
+    padding: 24px;
+    background-color: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(47, 111, 79, 0.08);
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   FORM STYLING
+   ========================================================= */
+#expense-form label {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--color-text);
+    margin-top: 14px;
+    margin-bottom: 6px;
+}
+
+/* first label shouldn't need the extra top gap */
+#expense-form label:first-of-type {
+    margin-top: 0;
+}
+
+input,
+select {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--color-text);
+    padding: 10px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background-color: var(--color-bg);
+    box-sizing: border-box;
+}
+
+#expense-form input,
+#expense-form select {
+    width: 100%;
+    max-width: 320px;
+    display: block;
+    margin-bottom: 4px;
+}
+
+/* the markup uses <br><br> for spacing between fields; now that
+   labels/inputs are block-level with their own margin, those
+   line breaks are no longer needed visually */
+#expense-form br {
+    display: none;
+}
+
+
+/* =========================================================
+   BUTTON STYLING
+   ========================================================= */
 #add-expense-btn {
     display: block;
-    margin-top: 16px;
-    padding: 10px 16px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 4px;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
     font-size: 14px;
+    color: #ffffff;
+    background-color: var(--color-primary);
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.15s ease;
 }
 
 #add-expense-btn:hover {
-    background-color: #43a047;
+    background-color: var(--color-primary-dark);
 }
 
 
 /* =========================================================
-   NEW: How to use this tracker (details/summary)
+   DETAILS / SUMMARY ("How to use this tracker")
    ========================================================= */
-
-/* ID selector */
 #how-to {
-    margin-top: 16px;
-    padding: 12px 16px;
-    background-color: #f4f4f4;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    margin-top: 20px;
+    padding: 14px 16px;
+    background-color: var(--color-primary-light);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
 }
 
 #how-to summary {
-    font-weight: bold;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: var(--color-primary);
     cursor: pointer;
 }
 
+#how-to p {
+    color: var(--color-text);
+    margin-bottom: 0;
+    margin-top: 8px;
+}
+
 
 /* =========================================================
-   NEW: Expense table
+   EXPENSE TABLE STYLING
    ========================================================= */
-
-/* ID selector, with border-collapse per the assignment */
 #expenses-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
-/* Descendant selector - targets th/td anywhere inside the table */
 #expenses-table th,
 #expenses-table td {
-    border: 1px solid #ccc;
-    padding: 10px;
+    border: 1px solid var(--color-border);
+    padding: 12px 14px;
     text-align: left;
 }
 
-/* Colored header row */
 #expenses-table thead th {
-    background-color: #388e3c;
-    color: white;
+    background-color: var(--color-primary);
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.02em;
 }
 
 
 /* =========================================================
-   NEW: Budgeting Tips / video section
+   BUDGETING TIPS / VIDEO SECTION
    ========================================================= */
-
-/* ID selector */
-#budget-tips {
-    background-color: white;
-    padding: 20px;
-    margin-top: 20px;
-    border: 2px solid #ccc;
-}
-
-/* Element selector */
 iframe {
     display: block;
     border: none;
+    border-radius: 8px;
     max-width: 100%;
+    margin-top: 8px;
 }
 
 
 /* =========================================================
-   ADVANCED SELECTORS (at least 3 required - 5 used here)
+   ADVANCED SELECTORS (carried over, restyled to match palette)
    ========================================================= */
 
-/* 1. Descendant selector
-      Targets every td nested inside .expenses, however deep. */
+/* Descendant selector - every td nested inside .expenses */
 .expenses td {
-    color: #222;
+    color: var(--color-text);
 }
 
-/* 2. Direct child selector
-      Only <label> elements that are direct children of the form
-      get this styling - not labels nested somewhere else. */
+/* Direct child selector - only labels that are direct children
+   of the form */
 #expense-form > label {
-    font-weight: bold;
+    font-weight: 600;
 }
 
-/* 3. Position-based pseudo-classes
-      First data row gets a top accent, even rows are striped. */
+/* Position-based pseudo-classes */
 #expenses-table tbody tr:first-child {
-    border-top: 2px solid #388e3c;
+    border-top: 2px solid var(--color-primary);
 }
 
 #expenses-table tbody tr:nth-child(even) {
-    background-color: #f1f8f1;
+    background-color: var(--color-primary-light);
 }
 
-/* 4. Negation pseudo-class
-      Every form input is styled the same size EXCEPT number
-      inputs, which are narrower since amounts are short. */
+/* Negation pseudo-class - number inputs are narrower than the
+   rest of the form fields */
 #expense-form input:not([type="number"]) {
-    width: 220px;
+    max-width: 320px;
 }
 
 #expense-form input[type="number"] {
-    width: 120px;
+    max-width: 160px;
 }
 
-/* 5. Focus state
-      Highlight whichever field/select the user is currently in. */
+/* Focus state */
 #expense-form input:focus,
 #expense-form select:focus {
     outline: none;
-    border: 1px solid #388e3c;
-    box-shadow: 0 0 0 2px rgba(56, 142, 60, 0.2);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-light);
 }
 
-/* :hover feedback on table rows */
+/* Hover feedback on table rows */
 #expenses-table tbody tr:hover {
-    background-color: #dcedc8;
+    background-color: var(--color-primary-light);
 }
