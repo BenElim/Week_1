@@ -1,121 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Budget Tracker</title>
-
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpendWise — Dashboard</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-     <img src = "wallet.jpeg" alt="Wallet icon representing budget tracking" width="300" height="200">
-    
-<h1>My Budget Tracker</h1>
 
-    <p>Track your income and expenses in one place.</p>
+  <div class="dashboard-shell">
 
-    <section id="add-expense">
-        <h2>Add Expense</h2>
+    <!-- ===================== SIDEBAR ===================== -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <span class="brand-mark">SW</span>
+        <span class="brand-name">SpendWise</span>
+      </div>
 
-        <form id="expense-form">
-            <label for="expense-name">Expense Name:</label>
-            <input type="text" id="expense-name" placeholder="Enter expense name">
+      <nav class="sidebar-nav" aria-label="Primary">
+        <ul>
+          <li><a href="#" class="nav-link is-active" aria-current="page">Dashboard</a></li>
+          <li><a href="#" class="nav-link">Expenses</a></li>
+          <li><a href="#" class="nav-link">Reports</a></li>
+          <li><a href="#" class="nav-link">Budgets</a></li>
+          <li><a href="#" class="nav-link">Settings</a></li>
+        </ul>
+      </nav>
 
-            <br><br>
+      <div class="sidebar-user">
+        <span class="user-avatar">AK</span>
+        <div class="user-meta">
+          <span class="user-name">Amina Kimani</span>
+          <span class="user-plan">Personal plan</span>
+        </div>
+      </div>
+    </aside>
 
-            <label for="expense-amount">Amount:</label>
-            <input type="number" id="expense-amount" placeholder="Enter amount">
+    <!-- ===================== HEADER ===================== -->
+    <header class="dashboard-header">
+      <div class="header-title">
+        <h1>Dashboard overview</h1>
+        <p>Here's where your money went this month.</p>
+      </div>
 
-            <br><br>
+      <div class="header-actions">
+        <span class="date-range">Sep 1 – Sep 15, 2026</span>
+        <span class="user-avatar user-avatar--header">AK</span>
+      </div>
+    </header>
 
-            <label for="expense-category">Category:</label>
-            <select id="expense-category">
-                <option value="" disabled selected>Choose a category</option>
-                <option value="food">Food</option>
-                <option value="transport">Transport</option>
-                <option value="rent">Rent</option>
-                <option value="entertainment">Entertainment</option>
-                <option value="other">Other</option>
-            </select>
+    <!-- ===================== MAIN ===================== -->
+    <main class="dashboard-main">
 
-            <br><br>
+      <section class="summary-bar" aria-label="Monthly summary">
+        <div class="summary-item">
+          <span class="summary-label">Total spent this month</span>
+          <span class="summary-value">$2,155.00</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Monthly budget</span>
+          <span class="summary-value">$2,320.00</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-label">Remaining</span>
+          <span class="summary-value summary-value--positive">$165.00</span>
+        </div>
+      </section>
 
-            <button type="button" id="add-expense-btn">Add Expense</button>
-        </form>
+      <section class="cards-grid" aria-label="Spending by category">
 
-        <details id="how-to">
-            <summary>How to use this tracker</summary>
-            <p>Fill in the expense name, amount, and category, then click "Add
-                Expense." Right now the button doesn't do anything yet - the
-                wiring that actually saves your expense and updates the table
-                below comes in Week 6 when JavaScript is introduced.</p>
-        </details>
-    </section>
+        <button type="button" class="card" data-status="under">
+          <div class="card-top">
+            <span class="card-category">Food</span>
+            <span class="card-status">On track</span>
+          </div>
+          <span class="card-amount">$420<small>.00</small></span>
+          <span class="card-budget">of $500.00 budget</span>
+          <div class="card-progress">
+            <div class="card-progress-fill" style="width: 84%;"></div>
+          </div>
+        </button>
 
-    <section class="expenses">
-        <h2>Your Expenses</h2>
+        <button type="button" class="card" data-status="over">
+          <div class="card-top">
+            <span class="card-category">Transport</span>
+            <span class="card-status">Over budget</span>
+          </div>
+          <span class="card-amount">$180<small>.00</small></span>
+          <span class="card-budget">of $150.00 budget</span>
+          <div class="card-progress">
+            <div class="card-progress-fill" style="width: 100%;"></div>
+          </div>
+        </button>
 
-        <table id="expenses-table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Amount</th>
-                    <th>Category</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Groceries</td>
-                    <td>Kshs 45.20</td>
-                    <td>Food</td>
-                    <td>2026-09-01</td>
-                </tr>
-                <tr>
-                    <td>Bus Fare</td>
-                    <td>Kshs 3.50</td>
-                    <td>Transport</td>
-                    <td>2026-09-02</td>
-                </tr>
-                <tr>
-                    <td>Monthly Rent</td>
-                    <td>Kshs 650.00</td>
-                    <td>Rent</td>
-                    <td>2026-09-03</td>
-                </tr>
-                <tr>
-                    <td>Movie Night</td>
-                    <td>Kshs 12.00</td>
-                    <td>Entertainment</td>
-                    <td>2026-09-05</td>
-                </tr>
-                <tr>
-                    <td>Phone Bill</td>
-                    <td>Kshs 28.75</td>
-                    <td>Other</td>
-                    <td>2026-09-06</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
+        <button type="button" class="card" data-status="under">
+          <div class="card-top">
+            <span class="card-category">Rent</span>
+            <span class="card-status">At limit</span>
+          </div>
+          <span class="card-amount">$950<small>.00</small></span>
+          <span class="card-budget">of $950.00 budget</span>
+          <div class="card-progress">
+            <div class="card-progress-fill" style="width: 100%;"></div>
+          </div>
+        </button>
 
-    <section id="budget-tips">
-        <h2>Budgeting Tips</h2>
+        <button type="button" class="card" data-status="under">
+          <div class="card-top">
+            <span class="card-category">Entertainment</span>
+            <span class="card-status">On track</span>
+          </div>
+          <span class="card-amount">$95<small>.00</small></span>
+          <span class="card-budget">of $120.00 budget</span>
+          <div class="card-progress">
+            <div class="card-progress-fill" style="width: 79%;"></div>
+          </div>
+        </button>
 
-        <p>New to budgeting? This short video covers the basics of tracking
-            income and expenses.</p>
-           
+        <button type="button" class="card" data-status="under">
+          <div class="card-top">
+            <span class="card-category">Savings</span>
+            <span class="card-status">On track</span>
+          </div>
+          <span class="card-amount">$300<small>.00</small></span>
+          <span class="card-budget">of $400.00 goal</span>
+          <div class="card-progress">
+            <div class="card-progress-fill" style="width: 75%;"></div>
+          </div>
+        </button>
 
-            <iframe
-            title="Budgeting basics video"
-            src="https://www.youtube.com/embed/sVKQn2I4HDM"
-            width="560"
-            height="315"
-            frameborder="0"
-            allowfullscreen>
-        </iframe>
-    </section>
+        <button type="button" class="card" data-status="over">
+          <div class="card-top">
+            <span class="card-category">Utilities</span>
+            <span class="card-status">Over budget</span>
+          </div>
+          <span class="card-amount">$210<small>.00</small></span>
+          <span class="card-budget">of $200.00 budget</span>
+          <div class="card-progress">
+            <div class="card-progress-fill" style="width: 100%;"></div>
+          </div>
+        </button>
+
+      </section>
+
+    </main>
+
+  </div>
 
 </body>
 </html>

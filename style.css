@@ -1,308 +1,449 @@
 /* =========================================================
    FONTS
-   Poppins for headings, Inter for body text/labels/table/form.
+   Fraunces (display serif, personality/character) for the
+   brand mark and big numbers. IBM Plex Sans (clean, built
+   for data) for everything else.
    ========================================================= */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
 
 
 /* =========================================================
-   COLOR PALETTE (kept small and consistent, used everywhere)
+   THEME — CSS custom properties on :root
    ========================================================= */
 :root {
-    --color-bg: #f3f7f4;          /* page background - soft sage */
-    --color-card: #ffffff;        /* card background */
-    --color-primary: #2f6f4f;     /* deep green - headings, buttons, table header */
-    --color-primary-dark: #23543c;/* hover state for primary elements */
-    --color-primary-light: #e7f3ea; /* light tint - stripes, hover rows, focus ring */
-    --color-text: #263330;        /* main body text */
-    --color-text-muted: #5b6b66;  /* secondary text */
-    --color-border: #dbe6df;      /* card/table/input borders */
+  --color-brand: #1b4b43;         /* deep pine green - sidebar, brand mark */
+  --color-brand-dark: #123933;
+  --color-accent: #e2a53d;        /* warm amber - progress fill, focus ring */
+  --color-surface: #fbf8f3;       /* card / header surface (warm paper white) */
+  --color-bg: #f1ece1;            /* page background */
+  --color-text-primary: #1f2421;  /* ink */
+  --color-text-secondary: #6b7268;/* muted secondary text */
+  --color-border: #e1dbca;
+
+  --color-status-under: #3f7d5c;  /* on-track green */
+  --color-status-over: #b8503a;   /* over-budget clay red */
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'IBM Plex Sans', Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-brand: #2f7a68;
+    --color-brand-dark: #1d5346;
+    --color-accent: #e6b565;
+    --color-surface: #232823;
+    --color-bg: #181b18;
+    --color-text-primary: #ede9df;
+    --color-text-secondary: #a3a99e;
+    --color-border: #343a34;
+
+    --color-status-under: #6fbd93;
+    --color-status-over: #e08268;
+  }
 }
 
 
 /* =========================================================
-   BASE / ELEMENT SELECTORS
+   RESET / BASE
    ========================================================= */
-body {
-    font-family: 'Inter', Arial, sans-serif;
-    color: var(--color-text);
-    background-color: var(--color-bg);
-    margin: 0;
-    padding: 40px 24px;
-    line-height: 1.5;
+* {
+  box-sizing: border-box;
 }
 
-h1, h2 {
-    font-family: 'Poppins', sans-serif;
-    color: var(--color-primary);
-    margin: 0;
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg);
 }
 
 h1 {
-    text-align: center;
-    font-size: 34px;
-}
-
-h2 {
-    font-size: 20px;
-    margin-bottom: 16px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 26px;
+  margin: 0 0 4px 0;
 }
 
 p {
-    color: var(--color-text-muted);
+  margin: 0;
+  color: var(--color-text-secondary);
 }
 
-img {
-    display: block;
-    margin: 0 auto;
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 
 /* =========================================================
-   BOX MODEL - "page heading" as a distinct card
-   img, h1 and p sit directly in <body> (no wrapper element),
-   so they're joined into one seamless card: matching side
-   borders/background on all three, rounded corners only on
-   the very top (img) and very bottom (p) edges, and no gap
-   between them.
+   PAGE LAYOUT — CSS Grid
+   Sidebar spans both rows; header sits top-right, main
+   content fills the rest.
    ========================================================= */
-img,
-body > h1,
-body > p {
-    max-width: 640px;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: var(--color-card);
-    border-left: 1px solid var(--color-border);
-    border-right: 1px solid var(--color-border);
-    padding-left: 24px;
-    padding-right: 24px;
-    box-sizing: border-box;
+.dashboard-shell {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar main";
+  min-height: 100vh;
 }
 
-img {
-    padding-top: 24px;
-    padding-bottom: 12px;
-    border-top: 1px solid var(--color-border);
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    box-shadow: 0 2px 6px rgba(47, 111, 79, 0.08);
+.sidebar {
+  grid-area: sidebar;
 }
 
-body > h1 {
-    padding-top: 4px;
-    padding-bottom: 8px;
+.dashboard-header {
+  grid-area: header;
 }
 
-body > p {
+.dashboard-main {
+  grid-area: main;
+}
+
+
+/* =========================================================
+   SIDEBAR — Flexbox for internal arrangement
+   ========================================================= */
+.sidebar {
+  background-color: var(--color-brand);
+  color: #fbf8f3;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 20px;
+  gap: 32px;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background-color: var(--color-accent);
+  color: var(--color-brand-dark);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.brand-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.sidebar-nav {
+  flex: 1;
+}
+
+.sidebar-nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(251, 248, 243, 0.75);
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.nav-link:hover {
+  background-color: rgba(251, 248, 243, 0.08);
+  color: #fbf8f3;
+}
+
+.nav-link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.nav-link.is-active {
+  background-color: rgba(251, 248, 243, 0.12);
+  color: #fbf8f3;
+}
+
+.sidebar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(251, 248, 243, 0.15);
+}
+
+.user-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: rgba(251, 248, 243, 0.15);
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.user-meta {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.user-name {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.user-plan {
+  font-size: 12px;
+  color: rgba(251, 248, 243, 0.6);
+}
+
+
+/* =========================================================
+   HEADER — Flexbox
+   ========================================================= */
+.dashboard-header {
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 32px;
+  gap: 20px;
+}
+
+.dashboard-header p {
+  font-size: 14px;
+  margin-top: 2px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.date-range {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  padding: 6px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+}
+
+.user-avatar--header {
+  background-color: var(--color-brand);
+  color: #fbf8f3;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+.dashboard-main {
+  padding: 28px 32px 40px 32px;
+}
+
+
+/* Summary bar — Flexbox row of stats */
+.summary-bar {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.summary-label {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.summary-value {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.summary-value--positive {
+  color: var(--color-status-under);
+}
+
+
+/* =========================================================
+   CATEGORY CARDS
+   Grid for placement, flexbox for each card's internal stack.
+   ========================================================= */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  text-align: left;
+  width: 100%;
+  padding: 20px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-status-under);
+  border-radius: 10px;
+  font-family: inherit;
+  color: inherit;
+  cursor: pointer;
+
+  /* micro-interaction: transform + shadow, 180ms (<= 250ms) */
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.card[data-status="over"] {
+  border-left-color: var(--color-status-over);
+}
+
+.card:hover,
+.card:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(27, 75, 67, 0.12);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.card-category {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.card-status {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-status-under);
+}
+
+.card[data-status="over"] .card-status {
+  color: var(--color-status-over);
+}
+
+.card-amount {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.card-amount small {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.card-budget {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin-top: -6px;
+}
+
+.card-progress {
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background-color: var(--color-border);
+  overflow: hidden;
+}
+
+.card-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background-color: var(--color-status-under);
+}
+
+.card[data-status="over"] .card-progress-fill {
+  background-color: var(--color-status-over);
+}
+
+
+/* =========================================================
+   RESPONSIVE — collapse to a single column below 768px
+   ========================================================= */
+@media (max-width: 768px) {
+  .dashboard-shell {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas:
+      "header"
+      "sidebar"
+      "main";
+  }
+
+  .sidebar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+  }
+
+  .sidebar-nav ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .sidebar-user {
+    border-top: none;
     padding-top: 0;
-    padding-bottom: 24px;
-    margin-bottom: 24px;
-    border-bottom: 1px solid var(--color-border);
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
-    box-shadow: 0 2px 6px rgba(47, 111, 79, 0.08);
-    text-align: center;
-}
+    margin-left: auto;
+  }
 
+  .dashboard-header {
+    flex-wrap: wrap;
+    padding: 18px 20px;
+  }
 
-/* =========================================================
-   BOX MODEL - section "cards"
-   Every major section shares the same card treatment:
-   padding inside, margin to separate from neighbors, a
-   border to define the edge, and rounded corners.
-   ========================================================= */
-#add-expense,
-.expenses,
-#budget-tips {
-    max-width: 640px;
-    margin: 0 auto 24px auto;
-    padding: 24px;
-    background-color: var(--color-card);
-    border: 1px solid var(--color-border);
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(47, 111, 79, 0.08);
-    box-sizing: border-box;
-}
+  .dashboard-main {
+    padding: 20px 20px 32px 20px;
+  }
 
-
-/* =========================================================
-   FORM STYLING
-   ========================================================= */
-#expense-form label {
-    display: block;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    font-size: 14px;
-    color: var(--color-text);
-    margin-top: 14px;
-    margin-bottom: 6px;
-}
-
-/* first label shouldn't need the extra top gap */
-#expense-form label:first-of-type {
-    margin-top: 0;
-}
-
-input,
-select {
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    color: var(--color-text);
-    padding: 10px 12px;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    background-color: var(--color-bg);
-    box-sizing: border-box;
-}
-
-#expense-form input,
-#expense-form select {
-    width: 100%;
-    max-width: 320px;
-    display: block;
-    margin-bottom: 4px;
-}
-
-/* the markup uses <br><br> for spacing between fields; now that
-   labels/inputs are block-level with their own margin, those
-   line breaks are no longer needed visually */
-#expense-form br {
-    display: none;
-}
-
-
-/* =========================================================
-   BUTTON STYLING
-   ========================================================= */
-#add-expense-btn {
-    display: block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    font-size: 14px;
-    color: #ffffff;
-    background-color: var(--color-primary);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.15s ease;
-}
-
-#add-expense-btn:hover {
-    background-color: var(--color-primary-dark);
-}
-
-
-/* =========================================================
-   DETAILS / SUMMARY ("How to use this tracker")
-   ========================================================= */
-#how-to {
-    margin-top: 20px;
-    padding: 14px 16px;
-    background-color: var(--color-primary-light);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-}
-
-#how-to summary {
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    color: var(--color-primary);
-    cursor: pointer;
-}
-
-#how-to p {
-    color: var(--color-text);
-    margin-bottom: 0;
-    margin-top: 8px;
-}
-
-
-/* =========================================================
-   EXPENSE TABLE STYLING
-   ========================================================= */
-#expenses-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-#expenses-table th,
-#expenses-table td {
-    border: 1px solid var(--color-border);
-    padding: 12px 14px;
-    text-align: left;
-}
-
-#expenses-table thead th {
-    background-color: var(--color-primary);
-    color: #ffffff;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-}
-
-
-/* =========================================================
-   BUDGETING TIPS / VIDEO SECTION
-   ========================================================= */
-iframe {
-    display: block;
-    border: none;
-    border-radius: 8px;
-    max-width: 100%;
-    margin-top: 8px;
-}
-
-
-/* =========================================================
-   ADVANCED SELECTORS (carried over, restyled to match palette)
-   ========================================================= */
-
-/* Descendant selector - every td nested inside .expenses */
-.expenses td {
-    color: var(--color-text);
-}
-
-/* Direct child selector - only labels that are direct children
-   of the form */
-#expense-form > label {
-    font-weight: 600;
-}
-
-/* Position-based pseudo-classes */
-#expenses-table tbody tr:first-child {
-    border-top: 2px solid var(--color-primary);
-}
-
-#expenses-table tbody tr:nth-child(even) {
-    background-color: var(--color-primary-light);
-}
-
-/* Negation pseudo-class - number inputs are narrower than the
-   rest of the form fields */
-#expense-form input:not([type="number"]) {
-    max-width: 320px;
-}
-
-#expense-form input[type="number"] {
-    max-width: 160px;
-}
-
-/* Focus state */
-#expense-form input:focus,
-#expense-form select:focus {
-    outline: none;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px var(--color-primary-light);
-}
-
-/* Hover feedback on table rows */
-#expenses-table tbody tr:hover {
-    background-color: var(--color-primary-light);
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
 }
