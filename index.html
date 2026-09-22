@@ -55,92 +55,74 @@
       <section class="summary-bar" aria-label="Monthly summary">
         <div class="summary-item">
           <span class="summary-label">Total spent this month</span>
-          <span class="summary-value">$2,155.00</span>
+          <span class="summary-value" id="total-spent-value">$0.00</span>
         </div>
         <div class="summary-item">
           <span class="summary-label">Monthly budget</span>
-          <span class="summary-value">$2,320.00</span>
+          <span class="summary-value" id="monthly-budget-value">$0.00</span>
         </div>
         <div class="summary-item">
           <span class="summary-label">Remaining</span>
-          <span class="summary-value summary-value--positive">$165.00</span>
+          <span class="summary-value" id="remaining-value">$0.00</span>
         </div>
       </section>
 
-      <section class="cards-grid" aria-label="Spending by category">
+      <div id="status-banner" class="status-banner" role="status"></div>
 
-        <button type="button" class="card" data-status="under">
-          <div class="card-top">
-            <span class="card-category">Food</span>
-            <span class="card-status">On track</span>
+      <section class="panel" aria-label="Update monthly budget">
+        <h2>Monthly Budget</h2>
+        <form id="budget-form" class="inline-form">
+          <div class="form-field">
+            <label for="budget-input">Budget amount ($)</label>
+            <input type="number" id="budget-input" min="0" step="0.01" value="2320.00" required>
           </div>
-          <span class="card-amount">$420<small>.00</small></span>
-          <span class="card-budget">of $500.00 budget</span>
-          <div class="card-progress">
-            <div class="card-progress-fill" style="width: 84%;"></div>
-          </div>
-        </button>
+          <button type="submit">Update Budget</button>
+        </form>
+      </section>
 
-        <button type="button" class="card" data-status="over">
-          <div class="card-top">
-            <span class="card-category">Transport</span>
-            <span class="card-status">Over budget</span>
+      <section class="panel" aria-label="Add a new expense">
+        <h2>Add Expense</h2>
+        <form id="expense-form" class="inline-form">
+          <div class="form-field">
+            <label for="expense-name-input">Expense name</label>
+            <input type="text" id="expense-name-input" placeholder="e.g. Groceries" required>
           </div>
-          <span class="card-amount">$180<small>.00</small></span>
-          <span class="card-budget">of $150.00 budget</span>
-          <div class="card-progress">
-            <div class="card-progress-fill" style="width: 100%;"></div>
+          <div class="form-field">
+            <label for="expense-amount-input">Amount ($)</label>
+            <input type="number" id="expense-amount-input" min="0" step="0.01" placeholder="0.00" required>
           </div>
-        </button>
+          <div class="form-field">
+            <label for="expense-category-select">Category</label>
+            <select id="expense-category-select">
+              <option value="Food">Food</option>
+              <option value="Transport">Transport</option>
+              <option value="Rent">Rent</option>
+              <option value="Entertainment">Entertainment</option>
+              <option value="Savings">Savings</option>
+              <option value="Utilities">Utilities</option>
+              <option value="__new__">Other (new category)</option>
+            </select>
+          </div>
+          <div class="form-field" id="new-category-field" hidden>
+            <label for="new-category-name-input">New category name</label>
+            <input type="text" id="new-category-name-input" placeholder="e.g. Subscriptions">
+          </div>
+          <div class="form-field" id="new-category-budget-field" hidden>
+            <label for="new-category-budget-input">Budget for this category ($)</label>
+            <input type="number" id="new-category-budget-input" min="0" step="0.01" placeholder="0.00">
+          </div>
+          <button type="submit">Add Expense</button>
+        </form>
+      </section>
 
-        <button type="button" class="card" data-status="under">
-          <div class="card-top">
-            <span class="card-category">Rent</span>
-            <span class="card-status">At limit</span>
-          </div>
-          <span class="card-amount">$950<small>.00</small></span>
-          <span class="card-budget">of $950.00 budget</span>
-          <div class="card-progress">
-            <div class="card-progress-fill" style="width: 100%;"></div>
-          </div>
-        </button>
+      <section class="panel alerts-panel" id="alerts-panel" hidden aria-label="Budget alerts">
+        <h2>Over-Budget Alerts</h2>
+        <ul id="alerts-list"></ul>
+      </section>
 
-        <button type="button" class="card" data-status="under">
-          <div class="card-top">
-            <span class="card-category">Entertainment</span>
-            <span class="card-status">On track</span>
-          </div>
-          <span class="card-amount">$95<small>.00</small></span>
-          <span class="card-budget">of $120.00 budget</span>
-          <div class="card-progress">
-            <div class="card-progress-fill" style="width: 79%;"></div>
-          </div>
-        </button>
-
-        <button type="button" class="card" data-status="under">
-          <div class="card-top">
-            <span class="card-category">Savings</span>
-            <span class="card-status">On track</span>
-          </div>
-          <span class="card-amount">$300<small>.00</small></span>
-          <span class="card-budget">of $400.00 goal</span>
-          <div class="card-progress">
-            <div class="card-progress-fill" style="width: 75%;"></div>
-          </div>
-        </button>
-
-        <button type="button" class="card" data-status="over">
-          <div class="card-top">
-            <span class="card-category">Utilities</span>
-            <span class="card-status">Over budget</span>
-          </div>
-          <span class="card-amount">$210<small>.00</small></span>
-          <span class="card-budget">of $200.00 budget</span>
-          <div class="card-progress">
-            <div class="card-progress-fill" style="width: 100%;"></div>
-          </div>
-        </button>
-
+      <section class="cards-grid" id="cards-grid" aria-label="Spending by category">
+        <!-- Cards are rendered here by script.js, one per category in the
+             expenseCategories array. Click a card to select/highlight it. -->
       </section>
 
     </main>
