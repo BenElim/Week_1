@@ -77,7 +77,7 @@ These come later as the capstone's functional layer is developed further.
 
 ## Live site
 
-- **Live URL:** https://spendwise-ex.netlify.app
+- **Live URL:** https://spendwise-expenditure.netlify.app
 - **Repository:** https://github.com/BenElim/Week_1
 
 ## Deployment
@@ -86,3 +86,28 @@ SpendWise is a static site (no build step), hosted on Netlify and connected to t
 
 - Build command: *(none)*
 - Publish directory: `/` (repository root)
+
+## Technologies Used
+
+- **HTML5**: semantic page structure (`aside`, `header`, `main`, `section`, `form`) and accessible labels
+- **CSS Grid**: the overall dashboard layout (sidebar, header, main content) and the responsive category card grid
+- **CSS Flexbox**: layout inside the header, sidebar, summary bar, forms and each card
+- **CSS custom properties**: a themed color palette on `:root`, with a dark theme via `prefers-color-scheme`
+- **JavaScript (vanilla)**: arrays, loops, conditionals, DOM manipulation and event listeners
+- **Git & GitHub**: version control and source hosting
+- **Netlify**: static hosting with continuous deployment from GitHub
+
+## Challenges Encountered
+
+- **Keeping data and page in sync:** the cards were originally hardcoded HTML, so I moved them into an array and rendered them from it with a single `updateDashboard()` function.
+- **Event listeners on re-rendered cards:** cards are rebuilt on every update, so listeners attached to them would be lost. I used event delegation on the card grid instead.
+- **Responsive layout:** collapsing the Grid layout to one column below 768px, and turning the sidebar into a horizontal row, took several adjustments.
+- **Deployment setup:** connecting GitHub to Netlify and making sure `index.html`, `style.css` and `script.js` sat at the repository root with correct relative paths.
+
+## Lessons Learned
+
+- Storing data in an array and generating the interface from it is much easier to maintain than editing HTML by hand.
+- CSS variables make theming simple, including a dark mode that only overrides `:root`.
+- Grid suits page-level layout while Flexbox suits content inside components, and they work well together.
+- Validating user input before changing data prevents broken totals and empty cards.
+- Pushing to GitHub triggers an automatic Netlify deploy, so small changes can go live in under a minute.
