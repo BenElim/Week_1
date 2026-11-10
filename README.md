@@ -77,7 +77,7 @@ These come later as the capstone's functional layer is developed further.
 
 ## Live site
 
-- **Live URL:** https://spendwise-expenditure.netlify.app
+- **Live URL:** https://spendwise-trc.netlify.app
 - **Repository:** https://github.com/BenElim/Week_1
 
 ## Deployment
